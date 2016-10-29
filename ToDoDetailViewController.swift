@@ -15,7 +15,8 @@ class ToDoDetailViewController: UIViewController {
     @IBOutlet weak var myDatePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var completionSwitch: UISwitch!
- 
+    
+ //@IBOutlet weak var reminderSwitch: UISwitch! alert ?===
     
     
     var gestureRecognizer: UITapGestureRecognizer!
@@ -27,6 +28,8 @@ class ToDoDetailViewController: UIViewController {
         //covers if the toDo is edited or added to show completion
         completionSwitch.isOn = toDo.completion
         toDoTitleField.text = toDo.title
+        
+        
         
         //category edit to do item
         

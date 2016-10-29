@@ -38,7 +38,7 @@
         sort()
     }
     
-    // add three to do items that starts on the first run (prepopulated)
+
     
     //MARK: - Public functions
     // mark adds todo at the top
@@ -71,12 +71,11 @@
         NSKeyedArchiver.archiveRootObject(toDos, toFile: archiveFilePath())
     }
     
-    // sorts the toDos based on the date.. weither or not it is the newest.
+    
+//MARK: - Sort To Dos
+ // * my code currently sorts based on date and time making the one with the closest date and time to todays date and time the Priority
     func sort(){
-        //     toDos.sort { (ToDo1, ToDo2 ) -> Bool in
-        //          return ToDo1.date.compare(ToDo2.date) == .orderedDescending
-        //     }
-        /// can use this also to SORT :  toDos.sort { $0.date.compare($1.date) ==orderedDecending
+
     }
     
     
