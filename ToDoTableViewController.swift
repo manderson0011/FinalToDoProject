@@ -11,17 +11,6 @@ import UserNotifications
 
 class ToDosTableViewController: UITableViewController {
     
-    var onlyIfComplete = false
-    var searchDisplayController: UISearchController
-    let searchController = UISearchController(searchResultsController: nil)
-    
-    
-    
-    @IBAction func showOnlyComplete(_ sender: AnyObject) {
-        onlyIfComplete = !onlyIfComplete
-        tableView.reloadData()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,16 +19,8 @@ class ToDosTableViewController: UITableViewController {
         
         
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Search"
-        definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
     }
-    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,45 +62,21 @@ class ToDosTableViewController: UITableViewController {
         
         cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
         cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
+        //      //    let category: Category
+        //    if searchController.isActive && searchController.searchBar.text != "" {
+        //    category = filteredCategory[indexPath.row]
+        //    } else {
+        //    Category = category[indexPath.row]
+        //    }
+        //    cell.textLabel?.category: indexPath.section = indexPath.section
+        //    cell.detailTextLabel?.text = indexPath.section
         
+        // Configure the cell...
         
-        //MARK:  switch for complete:
-        
-        if onlyIfComplete == false {
-            
-            if cell.toDo.completion == true {
-                cell.isHidden = true
-            }
-            
-        }
         return cell
     }
-    // takes empty space away when row is hidden
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section).completion == true && onlyIfComplete == false {
-            return 0
-        } else {
-            return 138
-        }
-    }
     
-    
-    
-    //MARK - SEARCH CONTROLLER SEARCH BAR
-    
-    //    let category: Category
-    //    if searchController.isActive && searchController.searchBar.text != "" {
-    //    category = filteredCategory[indexPath.row]
-    //    } else {
-    //    Category = category[indexPath.row]
-    //    }
-    //    cell.textLabel?.category: indexPath.section = indexPath.section
-    //    cell.detailTextLabel?.text = indexPath.section
-    
-    // Configure the cell...
-    
-    
-    //MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
+//MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
     }
@@ -168,28 +125,6 @@ class ToDosTableViewController: UITableViewController {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    
-    
-    //MARK: - LOCAL NOTIFICATION FUNCTION
-    func scheduleLocal() {
-        let center = UNUserNotificationCenter.current()
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Wake UP"
-        content.body = "Seize The Day."
-        content.categoryIdentifier = "alarm"
-        content.userInfo = ["customData": "fizzbuzz"]
-        content.sound = UNNotificationSound.default()
-        
-        var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 30
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        center.add(request)
-    }
-    
     
     // MARK: - Navigation
     
@@ -245,4 +180,3 @@ class ToDosTableViewController: UITableViewController {
     }
     
 }
-
