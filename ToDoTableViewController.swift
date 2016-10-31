@@ -7,33 +7,31 @@
 //
 
 import UIKit
-import UserNotifications
 
 class ToDosTableViewController: UITableViewController {
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //      navigationItem.Toolbar = UIBarButtonItem(title: "Register", style: .plain, target: self, action: #selector(registerLocal))
-        //       navigationItem.Toolbar = UIBarButtonI tem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocal))
-        
-        
+        self.tableView.isEditing = true
         self.navigationItem.leftBarButtonItem = self.editButtonItem
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Table view data source
+// MARK: - Table view data source
     // example contacts each section.. a, b, c.. the person name is a row.   we want a row for each toDo
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
     }
+    //  override func sectionIndexTitles(for tableView: UITableView) -> [String]?{
+    //   return
+    //   }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -50,48 +48,35 @@ class ToDosTableViewController: UITableViewController {
             return "Work To Do List"
         case 2:
             return "Misc To Do List"
-        case 3:
-            return ""
         default:
             return "Section does not exist"
         }
     }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ToDoTableViewCell.self)) as! ToDoTableViewCell
         
         cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
-        cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
-        //      //    let category: Category
-        //    if searchController.isActive && searchController.searchBar.text != "" {
-        //    category = filteredCategory[indexPath.row]
-        //    } else {
-        //    Category = category[indexPath.row]
-        //    }
-        //    cell.textLabel?.category: indexPath.section = indexPath.section
-        //    cell.detailTextLabel?.text = indexPath.section
         
         // Configure the cell...
         
         return cell
     }
-    
-//MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
+    //MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .delete
+        return .none
     }
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    
+    /*
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
     
     
     // Override to support editing the table view.
@@ -106,25 +91,31 @@ class ToDosTableViewController: UITableViewController {
     }
     
     // MARK: - Rearrange the table view.  use first.
+    /*
     
     override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if sourceIndexPath.section != proposedDestinationIndexPath.section {
-            return sourceIndexPath
-        } else {
-            return proposedDestinationIndexPath
-        }
-    }
-    
-    //  Override to support rearranging the table view via priority.  use next
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
     }
+   
+    // Override to support rearranging the table view.  use next
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+        let movedObject = self.toDos.category
+     if indexPath >= 0 { move to indexPath 0
+     }else if indexPath <= 2 { move to indexPath
+     }else if indexPath = (#) { indexPath (#) + indexPath (#) / 2
+     return
+     
+    }
+    either moved to top .. bottom or somewhere in the middle if top make sure it has lower prio // if index path is 0 .. move to top - 1..
+    */
     
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
+    
+    
     
     // MARK: - Navigation
     
@@ -141,20 +132,8 @@ class ToDosTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     
-    //MARK: EDIT BAR BUTTON
-    @IBAction func showEditing(sender: UIBarButtonItem)
-    {
-        if(self.tableView.isEditing == true)
-        {
-            self.tableView.isEditing = false
-            self.navigationItem.rightBarButtonItem?.title = "Done"
-        }
-        else
-        {
-            self.tableView.isEditing = true
-            self.navigationItem.rightBarButtonItem?.title = "Edit"
-        }
-    }
+    
+    
     
     //MARK: unwind Segue   ---  this lets us edit the toDos// else adds another toDo so user can add as many toDos  as possible
     
@@ -175,8 +154,17 @@ class ToDosTableViewController: UITableViewController {
             ToDoStore.shared.addToDo(toDoDetailVC.toDo, category: toDoDetailVC.toDo.category)
             let indexPath = IndexPath(row: 0, section: toDoDetailVC.toDo.category)
             tableView.insertRows(at: [indexPath], with: .automatic)// several options available automatic - when upgrades are made the style will be changed to defaults to other systems.
+            
+            
         }
+        
+        
         
     }
     
 }
+
+
+
+
+

@@ -130,7 +130,6 @@ extension ToDoDetailViewController: UINavigationControllerDelegate, UIImagePicke
         
     }
 }
-
 //Mark: - UIPickerView delegate and data source
 extension ToDoDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -148,5 +147,4 @@ extension ToDoDetailViewController: UIPickerViewDelegate, UIPickerViewDataSource
         return "Misc"
     }
 }
-
 
