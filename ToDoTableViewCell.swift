@@ -13,8 +13,7 @@ class ToDoTableViewCell: UITableViewCell {
     @IBOutlet weak var toDoTitleLabel: UILabel!
     @IBOutlet weak var toDoTextLabel: UILabel!
     @IBOutlet weak var toDoDateLabel: UILabel!
-    @IBOutlet weak var toDoDate1Label: UILabel!
-
+ 
 
     
     
@@ -34,8 +33,6 @@ class ToDoTableViewCell: UITableViewCell {
      self.toDo = toDo
         toDoTitleLabel.text = toDo.title
         toDoDateLabel.text = toDo.dateString
-        toDoDate1Label.text = toDo.dateString
-        
    
         
         

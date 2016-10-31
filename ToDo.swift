@@ -31,7 +31,7 @@ class ToDo: NSObject, NSCoding{
     // archive our own classes .. by making a function to do this
     var dateString:String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy HH:mm"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
         return dateFormatter.string(from: dueDate)
     }
     
