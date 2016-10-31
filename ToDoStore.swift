@@ -32,13 +32,13 @@
             toDos[0].append(ToDo(title: "ToDo 1", category: 0, dueDate: Date(), completion: false, priority: 0.0))
             toDos[1].append(ToDo(title: "ToDo 2", category: 1, dueDate: Date(), completion: false, priority: 0.0))
             toDos[2].append(ToDo(title: "ToDo 3", category: 2, dueDate: Date(), completion: false, priority: 0.0))
-            
+
             
             save() }
         sort()
     }
     
-    
+    // add three to do items that starts on the first run (prepopulated)
     
     //MARK: - Public functions
     // mark adds todo at the top
@@ -65,18 +65,18 @@
         }
         return priority + 1.0
     }
-    
-    
+    // lets us save this in one line of code
     
     func save(){
         NSKeyedArchiver.archiveRootObject(toDos, toFile: archiveFilePath())
     }
     
-    
-    //MARK: - Sort To Dos
-    // * my code currently sorts based on date and time making the one with the closest date and time to todays date and time the Priority
+    // sorts the toDos based on the date.. weither or not it is the newest.
     func sort(){
-        
+        //     toDos.sort { (ToDo1, ToDo2 ) -> Bool in
+        //          return ToDo1.date.compare(ToDo2.date) == .orderedDescending
+        //     }
+        /// can use this also to SORT :  toDos.sort { $0.date.compare($1.date) ==orderedDecending
     }
     
     

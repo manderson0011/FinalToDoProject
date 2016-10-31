@@ -8,35 +8,23 @@
 
 import UIKit
 import UserNotifications
-import UserNotificationsUI
 
-class ToDosTableViewController: UITableViewController{
-    
-    var onlyIfComplete = false
-    var searchController = UISearchController(searchResultsController: nil)
-    var filteredToDo: [Category] = []
-    
-    @IBAction func showOnlyComplete(_ sender: AnyObject) {
-        onlyIfComplete = !onlyIfComplete
-        tableView.reloadData()
-    }
+class ToDosTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //      navigationItem.Toolbar = UIBarButtonItem(title: "Register", style: .plain, target: self, action: #selector(registerLocal))
+        //       navigationItem.Toolbar = UIBarButtonI tem(title: "Schedule", style: .plain, target: self, action: #selector(scheduleLocal))
+        
+        
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-        
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.sizeToFit()
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Search"
-        definesPresentationContext = true
-        tableView.tableHeaderView = searchController.searchBar
-        
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Table view data source
@@ -48,10 +36,9 @@ class ToDosTableViewController: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        // #warning Incomplete implementation, return the number of rows
         return ToDoStore.shared.getCount(category: section)
     }
-    
     
     // Mark: - switch for the section on the table view.
     
@@ -75,33 +62,21 @@ class ToDosTableViewController: UITableViewController{
         
         cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
         cell.setupCell(ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section))
+        //      //    let category: Category
+        //    if searchController.isActive && searchController.searchBar.text != "" {
+        //    category = filteredCategory[indexPath.row]
+        //    } else {
+        //    Category = category[indexPath.row]
+        //    }
+        //    cell.textLabel?.category: indexPath.section = indexPath.section
+        //    cell.detailTextLabel?.text = indexPath.section
         
-        return cell
+        // Configure the cell...
         
-        
-        //MARK:  switch for complete:
-        
-        if onlyIfComplete == false {
-            
-            if cell.toDo.completion == true {
-                cell.isHidden = true
-            }
-        }
         return cell
     }
     
-    // takes empty space away when row is hidden
-    override func tableView(_ tableView: UITableView, heightForRowAt    indexPath: IndexPath) -> CGFloat {
-        if ToDoStore.shared.getToDo(indexPath.row, category: indexPath.section).completion == true && onlyIfComplete == false {
-            return 0
-        } else {
-            return 120
-        }
-    }
-    
-    
-    
-    //MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
+//MARK: - ADDING THE ABILITY TO MAKE CELLS REORDERABLE
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return .delete
     }
@@ -151,7 +126,6 @@ class ToDosTableViewController: UITableViewController{
         return true
     }
     
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -166,7 +140,6 @@ class ToDosTableViewController: UITableViewController{
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    
     
     //MARK: EDIT BAR BUTTON
     @IBAction func showEditing(sender: UIBarButtonItem)
@@ -203,15 +176,7 @@ class ToDosTableViewController: UITableViewController{
             let indexPath = IndexPath(row: 0, section: toDoDetailVC.toDo.category)
             tableView.insertRows(at: [indexPath], with: .automatic)// several options available automatic - when upgrades are made the style will be changed to defaults to other systems.
         }
+        
     }
+    
 }
-
-//  MARK: - UISearchBarDelegate
-extension ToDosTableViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if let searchText = searchBar.text, searchText != "" {
-        }
-    }
-}
-
-

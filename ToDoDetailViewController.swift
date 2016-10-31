@@ -7,18 +7,15 @@
 //
 
 import UIKit
-import UserNotifications
-
-
 //links the fields to this class
-class ToDoDetailViewController: UIViewController  {
+class ToDoDetailViewController: UIViewController {
     @IBOutlet weak var toDoTitleField: UITextField!
     @IBOutlet weak var ImageView: UIImageView!
     
     @IBOutlet weak var myDatePicker: UIDatePicker!
     @IBOutlet weak var categoryPicker: UIPickerView!
     @IBOutlet weak var completionSwitch: UISwitch!
-    
+ 
     
     
     var gestureRecognizer: UITapGestureRecognizer!
@@ -26,13 +23,10 @@ class ToDoDetailViewController: UIViewController  {
     var toDo = ToDo()
     
     override func viewDidLoad() {
-        
-        
+        super.viewDidLoad()
         //covers if the toDo is edited or added to show completion
         completionSwitch.isOn = toDo.completion
         toDoTitleField.text = toDo.title
-        
-        
         
         //category edit to do item
         
@@ -43,9 +37,6 @@ class ToDoDetailViewController: UIViewController  {
             ImageView.isHidden = true
         }
     }
-    
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -70,7 +61,6 @@ class ToDoDetailViewController: UIViewController  {
         imagePicker.sourceType = type
         present(imagePicker, animated: true, completion: nil)
     }
-    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -81,7 +71,7 @@ class ToDoDetailViewController: UIViewController  {
         toDo.category = categoryPicker.selectedRow(inComponent: 0)
         toDo.dueDate = myDatePicker.date
         toDo.completion = completionSwitch.isOn
-        
+     
     }
     
     // MARK: - IBActions
@@ -104,6 +94,8 @@ class ToDoDetailViewController: UIViewController  {
     }
     
 }
+
+
 // can copy this and use over and over
 //Mark: - Image Picker
 extension ToDoDetailViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -120,7 +112,7 @@ extension ToDoDetailViewController: UINavigationControllerDelegate, UIImagePicke
             let scale = maxSize/image.size.width
             let newHeight = image.size.height * scale
             
-            UIGraphicsBeginImageContext(CGSize(width: maxSize, height: newHeight))
+        UIGraphicsBeginImageContext(CGSize(width: maxSize, height: newHeight))
             image.draw(in: CGRect(x: 0, y: 0, width: maxSize, height: newHeight))
             let resizeImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
